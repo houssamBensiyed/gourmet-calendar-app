@@ -4,22 +4,17 @@ export function escapeHtml(text) {
     "<": "&lt;",
     ">": "&gt;",
     '"': "&quot;",
-    "'": "&#039",
+    "'": "&#039;",
   };
   return text.replace(/[&<>"']/g, (m) => map[m]);
 }
 
-export function createEL(tag, className = "", attributes = {}) {
-  const el = document.createElement(tag);
-  if (className) el.className = className;
-  Object.entries(attributes).forEach(([key, value]) => {
-    el.setAttribute(key, value);
-  });
-  return el;
+export function clearElement(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
 }
 
-export function clearElement(element) {
-  while (element.firstCHild) {
-    element.removeChild(element.fistChild);
-  }
+export function generateId() {
+  return `res_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }

@@ -17,8 +17,12 @@ export function isSameDay(date1, date2) {
 
 export function getWeekDates(weekOffset = 0) {
   const today = new Date();
-  const monday = getMondayOfWeek(today);
-  monday.setDate(monday.getDate() + weekOffset * 7);
+  const currentDay = today.getDay();
+  const diff = currentDay === 0 ? -6 : 1 - currentDay;
+
+  const monday = new Date(today);
+  monday.setDate(today.getDate() + diff + weekOffset * 7);
+  monday.setHours(0, 0, 0, 0);
 
   const weekDates = [];
   for (let i = 0; i < 7; i++) {
@@ -30,7 +34,10 @@ export function getWeekDates(weekOffset = 0) {
   return weekDates;
 }
 
-export function formatDateRange(startDate, endDate, locale = "fr-FR") {
-  const options = { month: "long", year: "numeric" };
-  return startDate.toLocaleDateString(locale, options);
+export function formatDateRange(date, locale = "fr-FR") {
+  const monthYear = date.toLocaleDateString(locale, {
+    month: "long",
+    year: "numeric",
+  });
+  return monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
 }

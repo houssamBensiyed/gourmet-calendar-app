@@ -355,7 +355,8 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-.sidebar-overlay {
+.sidebar-overlay,
+.filter-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -364,7 +365,8 @@ body {
   margin-top: var(--header-height);
 }
 
-.sidebar-overlay.active {
+.sidebar-overlay.active,
+.filter-overlay.active {
   display: block;
 }
 
@@ -555,6 +557,10 @@ body {
 
 .stat-color-group {
   background: #8b6f47;
+}
+
+.stat-color-business {
+  background: #525252;
 }
 
 .stat-info {
@@ -891,6 +897,19 @@ body {
 .event-people {
   font-size: 11px;
   opacity: 0.8;
+}
+
+.resize-handle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: ns-resize;
+  background: transparent;
+}
+
+.resize-handle-bottom {
+  bottom: 0;
 }
 
 .modal-overlay {

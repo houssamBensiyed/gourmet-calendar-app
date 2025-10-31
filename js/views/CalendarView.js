@@ -1,6 +1,6 @@
 import { CONFIG, DAYS_OF_WEEK } from "../config/constants.js";
 import { escapeHtml } from "../utils/domHelpers.js";
-import { isSameDay } from "../utils/dateHelpers.js";
+import { isSameDay, formatDateRange } from "../utils/dateHelpers.js";
 
 export class CalendarView {
   constructor() {
@@ -41,12 +41,7 @@ export class CalendarView {
 
   updatePeriodDisplay(weekDates) {
     const start = weekDates[0];
-    const monthYear = start.toLocaleDateString("fr-FR", {
-      month: "long",
-      year: "numeric",
-    });
-    this.currentPeriod.textContent =
-      monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
+    this.currentPeriod.textContent = formatDateRange(start);
   }
 
   renderGrid(weekDates, reservations) {

@@ -3,39 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Professional Reservation Calendar System"
-    />
-    <title>ReserveX Calendar</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
+    <title>ReserveX - Système de Gestion des Réservations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
+    <!-- Header -->
     <header class="header">
       <div class="header-left">
-        <button
-          class="menu-btn"
-          id="menuToggle"
-          type="button"
-          aria-label="Menu"
-        >
+        <button class="menu-btn" id="menuToggle" aria-label="Menu">
           <i class="fas fa-bars"></i>
         </button>
         <div class="logo">
           <div class="logo-icon">
-            <i class="fas fa-calendar-alt"></i>
+            <i class="fas fa-calendar-check"></i>
           </div>
-          <span class="logo-text">Le Gourmet</span>
+          <span class="logo-text">ReserveX</span>
         </div>
       </div>
 
@@ -44,111 +36,49 @@
           <i class="fas fa-search"></i>
           <input
             type="text"
+            placeholder="Rechercher une réservation..."
             id="searchInput"
-            placeholder="Rechercher des réservations"
-            autocomplete="off"
           />
         </div>
       </div>
 
       <div class="header-right">
-        <button
-          class="icon-btn"
-          id="filterToggle"
-          type="button"
-          title="Filtres"
-        >
+        <button class="icon-btn" id="filterToggle" aria-label="Filtres">
           <i class="fas fa-filter"></i>
         </button>
-        <div class="user-avatar" title="Admin">
-          <span>HB</span>
-        </div>
+        <div class="user-avatar">AD</div>
       </div>
     </header>
 
-    <div class="filter-panel" id="filterPanel">
-      <div class="filter-header">
-        <h3>Filtrer par type</h3>
-        <button class="filter-close" id="filterClose" type="button">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="filter-body">
-        <label class="filter-checkbox">
-          <input type="checkbox" value="all" id="filterAll" checked />
-          <span class="checkmark"></span>
-          <span class="filter-label">Tous les types</span>
-        </label>
-        <label class="filter-checkbox">
-          <input type="checkbox" value="standard" class="filter-type" checked />
-          <span class="checkmark checkmark-standard"></span>
-          <span class="filter-label">Standard</span>
-        </label>
-        <label class="filter-checkbox">
-          <input type="checkbox" value="vip" class="filter-type" checked />
-          <span class="checkmark checkmark-vip"></span>
-          <span class="filter-label">VIP</span>
-        </label>
-        <label class="filter-checkbox">
-          <input type="checkbox" value="birthday" class="filter-type" checked />
-          <span class="checkmark checkmark-birthday"></span>
-          <span class="filter-label">Anniversaire</span>
-        </label>
-        <label class="filter-checkbox">
-          <input type="checkbox" value="group" class="filter-type" checked />
-          <span class="checkmark checkmark-group"></span>
-          <span class="filter-label">Groupe</span>
-        </label>
-        <label class="filter-checkbox">
-          <input type="checkbox" value="business" class="filter-type" checked />
-          <span class="checkmark checkmark-business"></span>
-          <span class="filter-label">Affaires</span>
-        </label>
-      </div>
-      <div class="filter-footer">
-        <button class="btn-reset" id="filterReset" type="button">
-          Réinitialiser
-        </button>
-        <button class="btn-apply" id="filterApply" type="button">
-          Appliquer
-        </button>
-      </div>
-    </div>
-
+    <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+    <!-- Main Layout -->
     <div class="main-layout">
+      <!-- Sidebar -->
       <aside class="sidebar" id="sidebar">
-        <button class="create-btn" id="addReservationBtn" type="button">
+        <button class="create-btn" id="addReservationBtn">
           <i class="fas fa-plus"></i>
-          <span>Créer</span>
+          Nouvelle Réservation
         </button>
 
+        <!-- Mini Calendar -->
         <div class="mini-calendar">
           <div class="mini-calendar-header">
-            <button
-              class="mini-nav-btn"
-              id="miniPrevMonth"
-              type="button"
-              aria-label="Mois précédent"
-            >
+            <button class="mini-nav-btn" id="miniPrevMonth">
               <i class="fas fa-chevron-left"></i>
             </button>
             <span class="mini-month-year" id="miniMonthYear">Janvier 2024</span>
-            <button
-              class="mini-nav-btn"
-              id="miniNextMonth"
-              type="button"
-              aria-label="Mois suivant"
-            >
+            <button class="mini-nav-btn" id="miniNextMonth">
               <i class="fas fa-chevron-right"></i>
             </button>
           </div>
           <div class="mini-calendar-grid" id="miniCalendarGrid"></div>
         </div>
 
+        <!-- Statistics -->
         <div class="sidebar-stats">
-          <h3 class="sidebar-section-title">Cette semaine</h3>
+          <h3 class="sidebar-section-title">Statistiques hebdomadaires</h3>
           <div class="stat-item">
             <div class="stat-color stat-color-total"></div>
             <div class="stat-info">
@@ -184,37 +114,40 @@
               <span class="stat-value" id="groupCount">0</span>
             </div>
           </div>
+          <div class="stat-item">
+            <div class="stat-color stat-color-business"></div>
+            <div class="stat-info">
+              <span class="stat-label">Affaires</span>
+              <span class="stat-value" id="businessCount">0</span>
+            </div>
+          </div>
         </div>
       </aside>
 
+      <!-- Calendar Content -->
       <main class="calendar-content">
+        <!-- Toolbar -->
         <div class="toolbar">
           <div class="toolbar-left">
-            <button class="today-btn" id="todayBtn" type="button">
-              Aujourd'hui
-            </button>
+            <button class="today-btn" id="todayBtn">Aujourd'hui</button>
             <div class="nav-buttons">
-              <button
-                class="nav-btn"
-                id="prevWeek"
-                type="button"
-                aria-label="Semaine précédente"
-              >
+              <button class="nav-btn" id="prevWeek">
                 <i class="fas fa-chevron-left"></i>
               </button>
-              <button
-                class="nav-btn"
-                id="nextWeek"
-                type="button"
-                aria-label="Semaine suivante"
-              >
+              <button class="nav-btn" id="nextWeek">
                 <i class="fas fa-chevron-right"></i>
               </button>
             </div>
             <h2 class="current-period" id="currentPeriod">Janvier 2024</h2>
           </div>
+          <div class="toolbar-right">
+            <div class="view-selector">
+              <button class="view-btn view-btn-active">Semaine</button>
+            </div>
+          </div>
         </div>
 
+        <!-- Calendar Wrapper -->
         <div class="calendar-wrapper">
           <div class="calendar-header">
             <div class="time-gutter"></div>
@@ -229,183 +162,224 @@
       </main>
     </div>
 
-    <div class="modal-overlay" id="reservationModal">
+    <!-- Filter Panel -->
+    <div class="filter-panel" id="filterPanel">
+      <div class="filter-header">
+        <h3>Filtres</h3>
+        <button class="filter-close" id="filterClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="filter-body">
+        <label class="filter-checkbox">
+          <input type="checkbox" id="filterAll" checked />
+          <div class="checkmark"></div>
+          <span class="filter-label">Tous les types</span>
+        </label>
+
+        <label class="filter-checkbox">
+          <input type="checkbox" class="filter-type" value="standard" checked />
+          <div class="checkmark checkmark-standard"></div>
+          <span class="filter-label">Standard</span>
+        </label>
+
+        <label class="filter-checkbox">
+          <input type="checkbox" class="filter-type" value="vip" checked />
+          <div class="checkmark checkmark-vip"></div>
+          <span class="filter-label">VIP</span>
+        </label>
+
+        <label class="filter-checkbox">
+          <input type="checkbox" class="filter-type" value="birthday" checked />
+          <div class="checkmark checkmark-birthday"></div>
+          <span class="filter-label">Anniversaire</span>
+        </label>
+
+        <label class="filter-checkbox">
+          <input type="checkbox" class="filter-type" value="group" checked />
+          <div class="checkmark checkmark-group"></div>
+          <span class="filter-label">Groupe</span>
+        </label>
+
+        <label class="filter-checkbox">
+          <input type="checkbox" class="filter-type" value="business" checked />
+          <div class="checkmark checkmark-business"></div>
+          <span class="filter-label">Affaires</span>
+        </label>
+      </div>
+
+      <div class="filter-footer">
+        <button class="btn-reset" id="filterReset">Réinitialiser</button>
+        <button class="btn-apply" id="filterApply">Appliquer</button>
+      </div>
+    </div>
+
+    <!-- Filter Overlay -->
+    <div class="filter-overlay" id="filterOverlay"></div>
+
+    <!-- Reservation Modal -->
+    <div class="modal-overlay" id="reservationModal" aria-hidden="true">
       <div class="modal">
         <div class="modal-header">
-          <h2 class="modal-title" id="modalTitle">Nouvelle réservation</h2>
-          <button
-            class="modal-close"
-            id="closeModal"
-            type="button"
-            aria-label="Fermer"
-          >
+          <h2 class="modal-title" id="modalTitle">Nouvelle Réservation</h2>
+          <button class="modal-close" id="closeModal">
             <i class="fas fa-times"></i>
           </button>
         </div>
 
-        <form id="reservationForm" class="modal-body" novalidate>
-          <div class="form-row">
-            <div class="form-group form-group-full">
-              <label class="form-label" for="clientName">Nom du client *</label>
-              <input
-                type="text"
-                id="clientName"
-                class="form-input"
-                placeholder="Ex: Jean Dupont"
-                required
-              />
-              <span class="form-error" id="clientNameError"></span>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="daySelect">Jour *</label>
-              <select id="daySelect" class="form-select" required>
-                <option value="">Sélectionner un jour</option>
-                <option value="0">Lundi</option>
-                <option value="1">Mardi</option>
-                <option value="2">Mercredi</option>
-                <option value="3">Jeudi</option>
-                <option value="4">Vendredi</option>
-              </select>
-              <span class="form-error" id="daySelectError"></span>
+        <div class="modal-body">
+          <form id="reservationForm">
+            <div class="form-row">
+              <div class="form-group form-group-full">
+                <label class="form-label" for="clientName"
+                  >Nom du client *</label
+                >
+                <input
+                  type="text"
+                  class="form-input"
+                  id="clientName"
+                  required
+                />
+                <span class="form-error" id="clientNameError"></span>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="reservationType">Type *</label>
-              <select id="reservationType" class="form-select" required>
-                <option value="">Sélectionner un type</option>
-                <option value="standard">Standard</option>
-                <option value="vip">VIP</option>
-                <option value="birthday">Anniversaire</option>
-                <option value="group">Groupe</option>
-                <option value="business">Affaires</option>
-              </select>
-              <span class="form-error" id="reservationTypeError"></span>
-            </div>
-          </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="daySelect">Jour *</label>
+                <select class="form-select" id="daySelect" required>
+                  <option value="">Sélectionner un jour</option>
+                  <option value="0">Lundi</option>
+                  <option value="1">Mardi</option>
+                  <option value="2">Mercredi</option>
+                  <option value="3">Jeudi</option>
+                  <option value="4">Vendredi</option>
+                </select>
+                <span class="form-error" id="daySelectError"></span>
+              </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="startTime">Heure début *</label>
-              <input
-                type="time"
-                id="startTime"
-                class="form-input"
-                required
-                min="08:00"
-                max="22:00"
-              />
-              <span class="form-error" id="startTimeError"></span>
+              <div class="form-group">
+                <label class="form-label" for="numberOfPeople"
+                  >Nombre de personnes *</label
+                >
+                <input
+                  type="number"
+                  class="form-input"
+                  id="numberOfPeople"
+                  min="1"
+                  max="100"
+                  required
+                />
+                <span class="form-error" id="numberOfPeopleError"></span>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="endTime">Heure fin *</label>
-              <input
-                type="time"
-                id="endTime"
-                class="form-input"
-                required
-                min="08:00"
-                max="22:00"
-              />
-              <span class="form-error" id="endTimeError"></span>
-            </div>
-          </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="startTime"
+                  >Heure de début *</label
+                >
+                <input type="time" class="form-input" id="startTime" required />
+                <span class="form-error" id="startTimeError"></span>
+              </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="numberOfPeople"
-                >Nombre de personnes *</label
-              >
-              <input
-                type="number"
-                id="numberOfPeople"
-                class="form-input"
-                min="1"
-                max="100"
-                placeholder="Ex: 4"
-                required
-              />
-              <span class="form-error" id="numberOfPeopleError"></span>
+              <div class="form-group">
+                <label class="form-label" for="endTime">Heure de fin *</label>
+                <input type="time" class="form-input" id="endTime" required />
+                <span class="form-error" id="endTimeError"></span>
+              </div>
             </div>
-            <div class="form-group"></div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group form-group-full">
-              <label class="form-label" for="notes">Notes (optionnel)</label>
-              <textarea
-                id="notes"
-                class="form-textarea"
-                rows="3"
-                placeholder="Informations supplémentaires..."
-              ></textarea>
+            <div class="form-row">
+              <div class="form-group form-group-full">
+                <label class="form-label" for="reservationType"
+                  >Type de réservation *</label
+                >
+                <select class="form-select" id="reservationType" required>
+                  <option value="">Sélectionner un type</option>
+                  <option value="standard">Standard</option>
+                  <option value="vip">VIP</option>
+                  <option value="birthday">Anniversaire</option>
+                  <option value="group">Groupe</option>
+                  <option value="business">Affaires</option>
+                </select>
+                <span class="form-error" id="reservationTypeError"></span>
+              </div>
             </div>
-          </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn-cancel" id="cancelBtn">
-              Annuler
-            </button>
-            <button type="submit" class="btn-submit" id="submitBtn">
-              <span id="submitBtnText">Enregistrer</span>
-            </button>
-          </div>
-        </form>
+            <div class="form-row">
+              <div class="form-group form-group-full">
+                <label class="form-label" for="notes">Notes</label>
+                <textarea class="form-textarea" id="notes" rows="4"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" id="cancelBtn">
+            Annuler
+          </button>
+          <button
+            type="submit"
+            form="reservationForm"
+            class="btn-submit"
+            id="submitBtn"
+          >
+            <span id="submitBtnText">Enregistrer</span>
+          </button>
+        </div>
       </div>
     </div>
 
+    <!-- Event Popup -->
     <div class="event-popup event-popup-hidden" id="eventPopup">
       <div class="event-popup-header">
-        <h3 id="popupClientName"></h3>
-        <button
-          class="popup-close"
-          id="closePopup"
-          type="button"
-          aria-label="Fermer"
-        >
+        <h3 id="popupClientName">Client Name</h3>
+        <button class="popup-close" id="closePopup">
           <i class="fas fa-times"></i>
         </button>
       </div>
+
       <div class="event-popup-body">
         <div class="popup-info">
           <i class="fas fa-clock"></i>
-          <span id="popupTime"></span>
+          <span id="popupTime">14:00 - 16:00</span>
         </div>
         <div class="popup-info">
           <i class="fas fa-users"></i>
-          <span id="popupPeople"></span>
+          <span id="popupPeople">4 personnes</span>
         </div>
         <div class="popup-info">
           <i class="fas fa-tag"></i>
-          <span id="popupType"></span>
+          <span id="popupType">VIP</span>
         </div>
-        <div class="popup-info popup-info-hidden" id="popupNotesContainer">
-          <i class="fas fa-sticky-note"></i>
-          <span id="popupNotes"></span>
+        <div class="popup-info" id="popupNotesContainer">
+          <i class="fas fa-comment"></i>
+          <span id="popupNotes">Notes...</span>
         </div>
       </div>
+
       <div class="event-popup-actions">
-        <button class="popup-btn popup-btn-edit" id="popupEdit" type="button">
-          <i class="fas fa-edit"></i> Modifier
+        <button class="popup-btn" id="popupEdit">
+          <i class="fas fa-edit"></i>
+          Modifier
         </button>
-        <button
-          class="popup-btn popup-btn-delete"
-          id="popupDelete"
-          type="button"
-        >
-          <i class="fas fa-trash"></i> Supprimer
+        <button class="popup-btn popup-btn-delete" id="popupDelete">
+          <i class="fas fa-trash"></i>
+          Supprimer
         </button>
       </div>
     </div>
 
+    <!-- Toast Notification -->
     <div class="toast toast-hidden" id="toast">
-      <i class="toast-icon" id="toastIcon"></i>
-      <span class="toast-message" id="toastMessage"></span>
+      <i class="toast-icon fas fa-check-circle" id="toastIcon"></i>
+      <span class="toast-message" id="toastMessage">Message</span>
     </div>
 
-    <script type="module" src="app.js"></script>
+    <!-- JavaScript -->
+    <script type="module" src="js/app.js"></script>
   </body>
 </html>

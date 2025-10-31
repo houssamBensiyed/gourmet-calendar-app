@@ -12,7 +12,7 @@ export class ValidationService {
     }
 
     if (data.day === "" || data.day === null || data.day === undefined) {
-      errors.day = "Vueillez sélectionner un jour";
+      errors.daySelect = "Veuillez sélectionner un jour";
     }
 
     if (!data.startTime) {
@@ -37,7 +37,7 @@ export class ValidationService {
     }
 
     if (!data.type) {
-      errors.type = "Vueillez sélectionner un type";
+      errors.reservationType = "Veuillez sélectionner un type";
     }
 
     return {

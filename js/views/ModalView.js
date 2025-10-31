@@ -7,6 +7,14 @@ export class ModalView {
     this.cancelBtn = document.getElementById("cancelBtn");
     this.submitBtnText = document.getElementById("submitBtnText");
 
+    this.clientNameInput = document.getElementById("clientName");
+    this.daySelectInput = document.getElementById("daySelect");
+    this.startTimeInput = document.getElementById("startTime");
+    this.endTimeInput = document.getElementById("endTime");
+    this.numberOfPeopleInput = document.getElementById("numberOfPeople");
+    this.reservationTypeInput = document.getElementById("reservationType");
+    this.notesInput = document.getElementById("notes");
+
     this.onSubmit = onSubmit;
     this.onClose = onClose;
 
@@ -38,12 +46,12 @@ export class ModalView {
       this.modalTitle.textContent = "Nouvelle réservation";
       this.submitBtnText.textContent = "Enregistrer";
       this.form.reset();
-      if (dayIndex !== null) {
-        document.getElementById("daySelect").value = dayIndex;
+      if (dayIndex !== null && dayIndex >= 0 && dayIndex < 5) {
+        this.daySelectInput.value = dayIndex;
       }
     }
 
-    setTimeout(() => document.getElementById("clientName").focus(), 100);
+    setTimeout(() => this.clientNameInput.focus(), 100);
   }
 
   close() {
@@ -56,24 +64,24 @@ export class ModalView {
 
   getFormData() {
     return {
-      clientName: document.getElementById("clientName").value.trim(),
-      day: parseInt(document.getElementById("daySelect").value),
-      startTime: document.getElementById("startTime").value,
-      endTime: document.getElementById("endTime").value,
-      numberOfPeople: parseInt(document.getElementById("numberOfPeople").value),
-      type: document.getElementById("reservationType").value,
-      notes: document.getElementById("notes").value.trim(),
+      clientName: this.clientNameInput.value.trim(),
+      day: parseInt(this.daySelectInput.value),
+      startTime: this.startTimeInput.value,
+      endTime: this.endTimeInput.value,
+      numberOfPeople: parseInt(this.numberOfPeopleInput.value),
+      type: this.reservationTypeInput.value,
+      notes: this.notesInput.value.trim(),
     };
   }
 
   populateForm(data) {
-    document.getElementById("clientName").value = data.clientName;
-    document.getElementById("daySelect").value = data.day;
-    document.getElementById("startTime").value = data.startTime;
-    document.getElementById("endTime").value = data.endTime;
-    document.getElementById("numberOfPeople").value = data.numberOfPeople;
-    document.getElementById("reservationType").value = data.type;
-    document.getElementById("notes").value = data.notes || "";
+    this.clientNameInput.value = data.clientName;
+    this.daySelectInput.value = data.day;
+    this.startTimeInput.value = data.startTime;
+    this.endTimeInput.value = data.endTime;
+    this.numberOfPeopleInput.value = data.numberOfPeople;
+    this.reservationTypeInput.value = data.type;
+    this.notesInput.value = data.notes || "";
   }
 
   showErrors(errors) {
@@ -109,5 +117,9 @@ export class ModalView {
         input.setAttribute("aria-invalid", "false");
         input.style.borderColor = "";
       });
+  }
+
+  isOpen() {
+    return this.modal.classList.contains("active");
   }
 }

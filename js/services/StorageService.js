@@ -1,5 +1,4 @@
 import { CONFIG } from "../config/constants.js";
-import { Reservation } from "../models/Reservation.js";
 
 export class StorageService {
   static save(reservations) {
@@ -17,9 +16,7 @@ export class StorageService {
     try {
       const data = localStorage.getItem(CONFIG.STORAGE_KEY);
       if (!data) return [];
-
-      const parsed = JSON.parse(data);
-      return parsed.map((item) => Reservation.fromJSON(item));
+      return JSON.parse(data);
     } catch (error) {
       console.error("Storage load error:", error);
       return [];
@@ -31,7 +28,7 @@ export class StorageService {
       localStorage.removeItem(CONFIG.STORAGE_KEY);
       return true;
     } catch (error) {
-      console.error("Storage clear error: ", error);
+      console.error("Storage clear error:", error);
       return false;
     }
   }

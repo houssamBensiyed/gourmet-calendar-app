@@ -1,4 +1,4 @@
-export default CONFIG = {
+export const CONFIG = {
   START_HOUR: 8,
   END_HOUR: 22,
   TOAST_DURATION: 3000,

@@ -1,7 +1,7 @@
 export class Reservation {
   constructor(data) {
     this.id = data.id || this.generateId();
-    this.clientName = Date.clientName;
+    this.clientName = data.clientName;
     this.day = data.day;
     this.date = data.date;
     this.startTime = data.startTime;
