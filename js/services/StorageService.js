@@ -25,4 +25,14 @@ export class StorageService {
       return [];
     }
   }
+
+  static clear() {
+    try {
+      localStorage.removeItem(CONFIG.STORAGE_KEY);
+      return true;
+    } catch (error) {
+      console.error("Storage clear error: ", error);
+      return false;
+    }
+  }
 }
