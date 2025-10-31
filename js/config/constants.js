@@ -17,3 +17,11 @@ export const RESERVATION_TYPES = {
   GROUP: "group",
   BUSINESS: "business",
 };
+
+export const RESERVATION_LABELS = {
+  standard: "Standard",
+  vip: "VIP",
+  birthday: "Anniversaire",
+  group: "Groupe",
+  business: "Affaires",
+};
