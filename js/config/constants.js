@@ -9,3 +9,11 @@ export default CONFIG = {
   MIN_DURATION_MINUTES: 30,
   STORAGE_KEY: "reservex_reservations",
 };
+
+export const RESERVATION_TYPES = {
+  STANDARD: "standard",
+  VIP: "vip",
+  BIRTHDAY: "birthday",
+  GROUP: "group",
+  BUSINESS: "business",
+};
