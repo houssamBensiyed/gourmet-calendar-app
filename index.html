@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Professional Reservation Calendar System"
+    />
+    <title>ReserveX Calendar</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <button
+          class="menu-btn"
+          id="menuToggle"
+          type="button"
+          aria-label="Menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <span class="logo-text">Le Gourmet</span>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Rechercher des réservations"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          id="filterToggle"
+          type="button"
+          title="Filtres"
+        >
+          <i class="fas fa-filter"></i>
+        </button>
+        <div class="user-avatar" title="Admin">
+          <span>HB</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="filter-panel" id="filterPanel">
+      <div class="filter-header">
+        <h3>Filtrer par type</h3>
+        <button class="filter-close" id="filterClose" type="button">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="filter-body">
+        <label class="filter-checkbox">
+          <input type="checkbox" value="all" id="filterAll" checked />
+          <span class="checkmark"></span>
+          <span class="filter-label">Tous les types</span>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" value="standard" class="filter-type" checked />
+          <span class="checkmark checkmark-standard"></span>
+          <span class="filter-label">Standard</span>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" value="vip" class="filter-type" checked />
+          <span class="checkmark checkmark-vip"></span>
+          <span class="filter-label">VIP</span>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" value="birthday" class="filter-type" checked />
+          <span class="checkmark checkmark-birthday"></span>
+          <span class="filter-label">Anniversaire</span>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" value="group" class="filter-type" checked />
+          <span class="checkmark checkmark-group"></span>
+          <span class="filter-label">Groupe</span>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" value="business" class="filter-type" checked />
+          <span class="checkmark checkmark-business"></span>
+          <span class="filter-label">Affaires</span>
+        </label>
+      </div>
+      <div class="filter-footer">
+        <button class="btn-reset" id="filterReset" type="button">
+          Réinitialiser
+        </button>
+        <button class="btn-apply" id="filterApply" type="button">
+          Appliquer
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="main-layout">
+      <aside class="sidebar" id="sidebar">
+        <button class="create-btn" id="addReservationBtn" type="button">
+          <i class="fas fa-plus"></i>
+          <span>Créer</span>
+        </button>
+
+        <div class="mini-calendar">
+          <div class="mini-calendar-header">
+            <button
+              class="mini-nav-btn"
+              id="miniPrevMonth"
+              type="button"
+              aria-label="Mois précédent"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <span class="mini-month-year" id="miniMonthYear">Janvier 2024</span>
+            <button
+              class="mini-nav-btn"
+              id="miniNextMonth"
+              type="button"
+              aria-label="Mois suivant"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="mini-calendar-grid" id="miniCalendarGrid"></div>
+        </div>
+
+        <div class="sidebar-stats">
+          <h3 class="sidebar-section-title">Cette semaine</h3>
+          <div class="stat-item">
+            <div class="stat-color stat-color-total"></div>
+            <div class="stat-info">
+              <span class="stat-label">Total</span>
+              <span class="stat-value" id="totalReservations">0</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-color stat-color-standard"></div>
+            <div class="stat-info">
+              <span class="stat-label">Standard</span>
+              <span class="stat-value" id="standardCount">0</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-color stat-color-vip"></div>
+            <div class="stat-info">
+              <span class="stat-label">VIP</span>
+              <span class="stat-value" id="vipCount">0</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-color stat-color-birthday"></div>
+            <div class="stat-info">
+              <span class="stat-label">Anniversaire</span>
+              <span class="stat-value" id="birthdayCount">0</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-color stat-color-group"></div>
+            <div class="stat-info">
+              <span class="stat-label">Groupe</span>
+              <span class="stat-value" id="groupCount">0</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="calendar-content">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <button class="today-btn" id="todayBtn" type="button">
+              Aujourd'hui
+            </button>
+            <div class="nav-buttons">
+              <button
+                class="nav-btn"
+                id="prevWeek"
+                type="button"
+                aria-label="Semaine précédente"
+              >
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button
+                class="nav-btn"
+                id="nextWeek"
+                type="button"
+                aria-label="Semaine suivante"
+              >
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <h2 class="current-period" id="currentPeriod">Janvier 2024</h2>
+          </div>
+        </div>
+
+        <div class="calendar-wrapper">
+          <div class="calendar-header">
+            <div class="time-gutter"></div>
+            <div class="days-header" id="daysHeader"></div>
+          </div>
+
+          <div class="calendar-grid-wrapper">
+            <div class="time-column" id="timeColumn"></div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-overlay" id="reservationModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle">Nouvelle réservation</h2>
+          <button
+            class="modal-close"
+            id="closeModal"
+            type="button"
+            aria-label="Fermer"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="reservationForm" class="modal-body" novalidate>
+          <div class="form-row">
+            <div class="form-group form-group-full">
+              <label class="form-label" for="clientName">Nom du client *</label>
+              <input
+                type="text"
+                id="clientName"
+                class="form-input"
+                placeholder="Ex: Jean Dupont"
+                required
+              />
+              <span class="form-error" id="clientNameError"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="daySelect">Jour *</label>
+              <select id="daySelect" class="form-select" required>
+                <option value="">Sélectionner un jour</option>
+                <option value="0">Lundi</option>
+                <option value="1">Mardi</option>
+                <option value="2">Mercredi</option>
+                <option value="3">Jeudi</option>
+                <option value="4">Vendredi</option>
+              </select>
+              <span class="form-error" id="daySelectError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reservationType">Type *</label>
+              <select id="reservationType" class="form-select" required>
+                <option value="">Sélectionner un type</option>
+                <option value="standard">Standard</option>
+                <option value="vip">VIP</option>
+                <option value="birthday">Anniversaire</option>
+                <option value="group">Groupe</option>
+                <option value="business">Affaires</option>
+              </select>
+              <span class="form-error" id="reservationTypeError"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="startTime">Heure début *</label>
+              <input
+                type="time"
+                id="startTime"
+                class="form-input"
+                required
+                min="08:00"
+                max="22:00"
+              />
+              <span class="form-error" id="startTimeError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="endTime">Heure fin *</label>
+              <input
+                type="time"
+                id="endTime"
+                class="form-input"
+                required
+                min="08:00"
+                max="22:00"
+              />
+              <span class="form-error" id="endTimeError"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="numberOfPeople"
+                >Nombre de personnes *</label
+              >
+              <input
+                type="number"
+                id="numberOfPeople"
+                class="form-input"
+                min="1"
+                max="100"
+                placeholder="Ex: 4"
+                required
+              />
+              <span class="form-error" id="numberOfPeopleError"></span>
+            </div>
+            <div class="form-group"></div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group form-group-full">
+              <label class="form-label" for="notes">Notes (optionnel)</label>
+              <textarea
+                id="notes"
+                class="form-textarea"
+                rows="3"
+                placeholder="Informations supplémentaires..."
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-cancel" id="cancelBtn">
+              Annuler
+            </button>
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span id="submitBtnText">Enregistrer</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="event-popup event-popup-hidden" id="eventPopup">
+      <div class="event-popup-header">
+        <h3 id="popupClientName"></h3>
+        <button
+          class="popup-close"
+          id="closePopup"
+          type="button"
+          aria-label="Fermer"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="event-popup-body">
+        <div class="popup-info">
+          <i class="fas fa-clock"></i>
+          <span id="popupTime"></span>
+        </div>
+        <div class="popup-info">
+          <i class="fas fa-users"></i>
+          <span id="popupPeople"></span>
+        </div>
+        <div class="popup-info">
+          <i class="fas fa-tag"></i>
+          <span id="popupType"></span>
+        </div>
+        <div class="popup-info popup-info-hidden" id="popupNotesContainer">
+          <i class="fas fa-sticky-note"></i>
+          <span id="popupNotes"></span>
+        </div>
+      </div>
+      <div class="event-popup-actions">
+        <button class="popup-btn popup-btn-edit" id="popupEdit" type="button">
+          <i class="fas fa-edit"></i> Modifier
+        </button>
+        <button
+          class="popup-btn popup-btn-delete"
+          id="popupDelete"
+          type="button"
+        >
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+      </div>
+    </div>
+
+    <div class="toast toast-hidden" id="toast">
+      <i class="toast-icon" id="toastIcon"></i>
+      <span class="toast-message" id="toastMessage"></span>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
