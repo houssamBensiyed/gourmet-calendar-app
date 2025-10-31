@@ -25,3 +25,6 @@ export const RESERVATION_LABELS = {
   group: "Groupe",
   business: "Affaires",
 };
+
+export const DAYS_OF_WEEK = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+export const DAYS_MINI = ["L", "M", "M", "J", "V", "S", "D"];
